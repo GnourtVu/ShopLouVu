@@ -61,11 +61,11 @@
 
                     <div class="p-t-27">
                         <a href="https://www.facebook.com/trlovu" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-                            <i class="fa fa-facebook"></i>
+                            <i class="fa-brands fa-facebook"></i>
                         </a>
 
                         <a href="https://www.instagram.com/imd_trzg/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-                            <i class="fa fa-instagram"></i>
+                            <i class="fa-brands fa-instagram"></i>
                         </a>
                     </div>
                 </div>

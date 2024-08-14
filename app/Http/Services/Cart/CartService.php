@@ -48,4 +48,16 @@ class CartService
             ->whereIn('id', $product_id)
             ->get();
     }
+    public function update($request)
+    {
+        Session::put('carts', $request->input('num_product'));
+        return true;
+    }
+    public function delete($id)
+    {
+        $carts = Session::get('carts');
+        unset($carts[$id]);
+        Session::put('carts', $carts);
+        return true;
+    }
 }

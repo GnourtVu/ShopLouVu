@@ -61,6 +61,10 @@ Route::middleware(['auth'])->group(function () {
 Route::prefix('user')->group(function () {
     Route::get('/', [UserMainController::class, 'index']);
     Route::get('shop', [UserMainController::class, 'product']);
+    //Contact
+    Route::get('contact', [UserMainController::class, 'contact']);
+    //About
+    Route::get('about', [UserMainController::class, 'about']);
 });
 Route::post('/services/load-product', [UserMainController::class, 'loadProduct']);
 //Product with category
@@ -70,3 +74,5 @@ Route::get('/product/{id}-{name}.html', [UserProductController::class, 'index'])
 //Cart
 Route::get('/cart', [CartController::class, 'index']);
 Route::post('/add-cart', [CartController::class, 'add']);
+Route::post('/update-cart', [CartController::class, 'update']);
+Route::get('/delete-cart/{id}', [CartController::class, 'delete']);

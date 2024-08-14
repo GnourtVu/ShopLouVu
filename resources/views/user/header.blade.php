@@ -35,36 +35,25 @@
                 <nav class="limiter-menu-desktop container">
 
                     <!-- Logo desktop -->
-                    <a href="#" class="logo">
-                        <img src="/template/user/images/icons/logo-01.png" alt="IMG-LOGO">
+                    <a href="/user" class="logo">
+                        <img src="/template/user/images/icons/lv.png" alt="IMG-LOGO">
                     </a>
-
                     <!-- Menu desktop -->
                     <div class="menu-desktop">
                         <ul class="main-menu">
-                            <li class="active-menu">
+                            <li>
                                 <a href="/user">Home</a>
+                            </li>
+                            <li class="active-menu">
+                                <a href="/user/shop">Shop</a>
                                 {!! $menuHtml !!}
                             </li>
-
                             <li>
-                                <a href="/user/shop">Shop</a>
-                            </li>
-
-                            <li class="label1" data-label1="hot">
-                                <a href="shoping-cart.html">Features</a>
+                                <a href="/user/about">About</a>
                             </li>
 
                             <li>
-                                <a href="blog.html">Blog</a>
-                            </li>
-
-                            <li>
-                                <a href="about.html">About</a>
-                            </li>
-
-                            <li>
-                                <a href="contact.html">Contact</a>
+                                <a href="/user/contact">Contact</a>
                             </li>
                         </ul>
                     </div>
@@ -75,12 +64,11 @@
                             <i class="zmdi zmdi-search"></i>
                         </div>
 
-                        <a href="/cart"
-                            class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                            data-notify="2">
+                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
+                            data-notify="{{ count(\Illuminate\Support\Facades\Session::get('carts')) }}">
 
                             <i class="zmdi zmdi-shopping-cart"></i>
-                        </a>
+                        </div>
                         <a href="#"
                             class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
                             data-notify="0">
@@ -105,7 +93,7 @@
                 </div>
 
                 <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
-                    data-notify="2">
+                    data-notify="{{ count(\Illuminate\Support\Facades\Session::get('carts')) }}">
                     <i class="zmdi zmdi-shopping-cart"></i>
                 </div>
             </div>
@@ -123,29 +111,19 @@
         <div class="menu-mobile">
 
             <ul class="main-menu-m">
-                <li class="active-menu">
+
+                <li>
                     <a href="/user">Home</a>
+                </li>
+                <li class="active-menu">
+                    <a href="/user/shop">Shop</a>
                     {!! $menuHtml !!}
                 </li>
-
                 <li>
-                    <a href="/user/shop">Shop</a>
+                    <a href="/user/about">About</a>
                 </li>
-
-                <li class="label1" data-label1="hot">
-                    <a href="shoping-cart.html">Features</a>
-                </li>
-
                 <li>
-                    <a href="blog.html">Blog</a>
-                </li>
-
-                <li>
-                    <a href="about.html">About</a>
-                </li>
-
-                <li>
-                    <a href="contact.html">Contact</a>
+                    <a href="/user/contact">Contact</a>
                 </li>
             </ul>
         </div>

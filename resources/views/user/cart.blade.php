@@ -16,7 +16,7 @@
     </div>
     <!-- shopping cart-->
     @if (count($products) != 0)
-        <form class="bg0 p-t-75 p-b-85">
+        <form class="bg0 p-t-75 p-b-85" method="post">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
@@ -30,6 +30,7 @@
                                             <th class="column-3">Price</th>
                                             <th class="column-4">Quantity</th>
                                             <th class="column-5">Total</th>
+                                            <th class="column-6"> </th>
                                         </tr>
                                         @php
                                             $total = 0;
@@ -55,14 +56,20 @@
                                                         </div>
 
                                                         <input class="mtext-104 cl3 txt-center num-product" type="number"
-                                                            name="num-product" value="{{ $carts[$product->id] }}">
+                                                            name="num_product[{{ $product->id }}]"
+                                                            value="{{ $carts[$product->id] }}">
 
                                                         <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
                                                             <i class="fs-16 zmdi zmdi-plus"></i>
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="column-5">{{ $priceEnd }}</td>
+                                                <td class="column-5">{{ number_format($priceEnd, 0, '.', ',') }}đ</td>
+                                                <td class="column-6 p-r-15">
+                                                    <a href="/delete-cart/{{ $product->id }}"><i
+                                                            class="fa-solid fa-trash-can" style="color: red;"></i>
+                                                    </a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -81,10 +88,9 @@
                                     </div>
                                 </div>
 
-                                <div
+                                <input type="submit" value="Update cart" formaction="update-cart"
                                     class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
-                                    Update Cart
-                                </div>
+                                @csrf
                             </div>
                         </div>
                     </div>
@@ -104,67 +110,37 @@
 
                                 <div class="size-209">
                                     <span class="mtext-110 cl2">
-                                        {{ $total }}
+                                        {{ number_format($total, 0, '.', ',') }}đ
                                     </span>
                                 </div>
                             </div>
 
                             <div class="flex-w flex-t bor12 p-t-15 p-b-30">
-                                <div class="size-208 w-full-ssm">
-                                    <span class="stext-110 cl2">
-                                        Shipping:
-                                    </span>
-                                </div>
-
                                 <div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
-                                    <p class="stext-111 cl6 p-t-2">
-                                        There are no shipping methods available. Please double check your address, or
-                                        contact us
-                                        if you need any help.
-                                    </p>
-
                                     <div class="p-t-15">
                                         <span class="stext-112 cl8">
-                                            Calculate Shipping
+                                            <b>Information Customer</b>
                                         </span>
-
-                                        <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-                                            <select class="js-select2 select2-hidden-accessible" name="time"
-                                                tabindex="-1" aria-hidden="true">
-                                                <option>Select a country...</option>
-                                                <option>USA</option>
-                                                <option>UK</option>
-                                            </select><span class="select2 select2-container select2-container--default"
-                                                dir="ltr" style="width: 142.4px;"><span class="selection"><span
-                                                        class="select2-selection select2-selection--single" role="combobox"
-                                                        aria-haspopup="true" aria-expanded="false" tabindex="0"
-                                                        aria-labelledby="select2-time-ts-container"><span
-                                                            class="select2-selection__rendered"
-                                                            id="select2-time-ts-container"
-                                                            title="Select a country...">Select a country...</span><span
-                                                            class="select2-selection__arrow" role="presentation"><b
-                                                                role="presentation"></b></span></span></span><span
-                                                    class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                            <div class="dropDownSelect2"></div>
-                                        </div>
-
                                         <div class="bor8 bg0 m-b-12">
-                                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state"
-                                                placeholder="State /  country">
+                                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="name"
+                                                placeholder="Your name">
                                         </div>
-
-                                        <div class="bor8 bg0 m-b-22">
-                                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text"
-                                                name="postcode" placeholder="Postcode / Zip">
+                                        <div class="bor8 bg0 m-b-12">
+                                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="address"
+                                                placeholder="Your address">
                                         </div>
-
-                                        <div class="flex-w">
-                                            <div
-                                                class="flex-c-m stext-101 cl2 size-115 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer">
-                                                Update Totals
-                                            </div>
+                                        <div class="bor8 bg0 m-b-12">
+                                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="phone"
+                                                placeholder="Your phone number">
                                         </div>
-
+                                        <div class="bor8 bg0 m-b-12">
+                                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="email" name="email"
+                                                placeholder="Your email">
+                                        </div>
+                                        <div class="bor8 bg0 m-b-12">
+                                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="content"
+                                                placeholder="*note">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -178,13 +154,13 @@
 
                                 <div class="size-209 p-t-1">
                                     <span class="mtext-110 cl2">
-                                        $79.65
+                                        {{ number_format($total, 0, '.', ',') }}đ
                                     </span>
                                 </div>
                             </div>
 
                             <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-                                Proceed to Checkout
+                                Buy now
                             </button>
                         </div>
                     </div>

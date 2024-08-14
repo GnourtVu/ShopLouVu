@@ -32,6 +32,7 @@
 <link rel="stylesheet" type="text/css" href="/template/user/css/util.css">
 <link rel="stylesheet" type="text/css" href="/template/user/css/main.css">
 <link rel="stylesheet" type="text/css" href="/template/user/css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
     .hidden {
         display: none;

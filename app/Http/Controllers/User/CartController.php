@@ -38,4 +38,20 @@ class CartController extends Controller
             return redirect('/cart');
         }
     }
+    public function update(Request $request)
+    {
+        $result = $this->cartService->update($request);
+        if ($result === false) {
+            return redirect()->back();
+        }
+        return redirect('/cart');
+    }
+    public function delete($id = 0)
+    {
+        $result = $this->cartService->delete($id);
+        if ($result === false) {
+            return redirect()->back();
+        }
+        return redirect('/cart');
+    }
 }

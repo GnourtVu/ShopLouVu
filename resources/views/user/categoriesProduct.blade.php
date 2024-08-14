@@ -136,7 +136,7 @@
             @include('user.product')
 
             <div class="card-footer clearfix">
-                {!! $products->links() !!}
+                {!! $productss->links() !!}
             </div>
         </div>
     </div>
