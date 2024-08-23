@@ -1,0 +1,135 @@
+body
+{
+	margin: 0 auto;
+	padding: 0 auto;
+	height: 100vh;
+	background: linear-gradient(45deg,#FC354C, #0ABFBC);
+	background-size: cover;
+	font-family: sans-serif;
+}
+.loginBox
+{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width: 350px;
+	height: 560px;
+	padding: 40px;
+	border-radius: 10px;
+	box-sizing: border-box;
+	background: rgba(255,255,255,.3);
+	background-position: center;
+}
+.user
+{
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	overflow: hidden;
+	position: absolute;
+	top: calc(-100px/2);
+	left: calc(70% - 35%);
+}
+h2
+{
+	margin: 0;
+	padding: 30px 0 40px;
+	color: #BE5869;
+	text-align: center;
+}
+.loginBox p
+{
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+	color: #fff;
+}
+.loginBox input
+{
+	width: 100%;
+	margin-bottom: 20px;
+}
+.loginBox input[type="email"],
+.loginBox input[type="password"]
+{
+	border: none;
+	border-bottom: 1px solid #fff;
+	background: transparent;
+	outline: none;
+	height: 40px;
+	color: #fff;
+	font-size: 16px;
+}
+::placeholder
+{
+	color: rgba(255,255,255,.5);
+}
+.loginBox input[type="submit"]
+{
+	border:none;
+	outline: none;
+	height: 40px;
+	color: #fff;
+	font-size: 14px;
+	background: linear-gradient(45deg,#FC354C, #0ABFBC);
+	cursor: pointer;
+	border-radius: 20px;
+}
+.loginBox input[type="submit"]:hover
+{
+	background: linear-gradient(45deg,#0ABFBC, #FC354C);
+}
+.loginBox .a
+{
+	color: #fff;
+	font-size: 14px;
+	font-weight: bold;
+	text-decoration: none;
+}
+.loginBox h5
+{
+	margin: 0;
+	padding: 15px 0 0 0;
+	text-align: center;
+	color: #fff;
+}
+.loginBox h4
+{
+	margin: 0;
+	padding: 30px;
+	text-align: center;
+	color: #fff;
+}
+.loginBox h4 a
+{
+	text-decoration: none;
+	color: #BE5869;
+}
+.alert-danger {
+    width: 100%; /* Đảm bảo thông báo lỗi chiếm toàn bộ chiều rộng của container */
+    background-color: rgba(255, 0, 0, 0.1); /* Màu nền với độ trong suốt nhẹ */
+    color: #d9534f; /* Màu chữ */
+    padding: 10px 20px; /* Khoảng đệm bên trong */
+    border-radius: 5px; /* Bo tròn góc */
+    font-size: 14px; /* Kích thước chữ */
+    margin-bottom: 15px; /* Khoảng cách giữa các thông báo */
+    line-height: 1.5; /* Chiều cao dòng để các dòng chữ không quá sát nhau */
+}
+
+.alert-danger ul {
+    margin: 0;
+    padding-left: 20px; /* Đẩy danh sách ra khỏi cạnh trái để dễ nhìn */
+}
+
+.alert-danger li {
+    list-style-type: disc; /* Thay đổi kiểu danh sách */
+    margin-left: 20px; /* Tạo khoảng cách giữa các dòng danh sách */
+    color: #6c1515; /* Màu chữ cho các mục trong danh sách */
+    font-size: 15px; /* Kích thước chữ nhỏ hơn để phù hợp với form */
+}
+
+.alert-danger ul li {
+    margin-bottom: 5px; /* Khoảng cách giữa các mục trong danh sách */
+}
+

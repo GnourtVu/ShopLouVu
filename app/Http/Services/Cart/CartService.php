@@ -2,8 +2,12 @@
 
 namespace App\Http\Services\Cart;
 
+use App\Jobs\SendMail;
+use App\Models\Cart;
+use App\Models\Customer;
 use App\Models\Product;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class CartService
@@ -59,5 +63,65 @@ class CartService
         unset($carts[$id]);
         Session::put('carts', $carts);
         return true;
+    }
+    public function buy($request)
+    {
+        try {
+            DB::beginTransaction();
+            $carts = Session::get('carts');
+            if (is_null($carts))
+                return false;
+            $customer = Customer::create([
+                'name' => $request->string('name'),
+                'email' => $request->string('email'),
+                'address' => $request->string('address'),
+                'phone' => $request->string('phone'),
+                'content' => $request->string('content')
+            ]);
+            $this->inforProduct($customer->id, $carts);
+            DB::commit();
+
+            #Queue
+            SendMail::dispatch($request->input('email'))->delay(now()->addSecond(2));
+            Session::forget('carts');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Session::flash('error', 'Order failed , Please try again later');
+            return false;
+        }
+    }
+    protected function inforProduct($customer_id, $carts)
+    {
+        $product_id = array_keys($carts);
+        $products = Product::select('id', 'name', 'price', 'price_sale', 'thumb')
+            ->where('active', 1)
+            ->whereIn('id', $product_id)
+            ->get();
+        $data = [];
+        foreach ($products as $key => $product) {
+            $data[] = [
+                'customer_id' => $customer_id,
+                'product_id' => $product->id,
+                'qty' => $carts[$product->id],
+                'price' => $product->price,
+            ];
+        }
+        return Cart::insert($data);
+    }
+    public function getCartList()
+    {
+        return Customer::select('id', 'name', 'address', 'phone', 'content', 'email', 'created_at')->orderByDesc('id')->paginate(10);
+    }
+    public function destroy($request)
+    {
+        $id = $request->input('id');
+        if (!$id) {
+            return false;
+        }
+        $customer = Customer::where('id', $id)->first();
+        if ($customer) {
+            return Customer::where('id', $id)->delete();
+        }
+        return false;
     }
 }

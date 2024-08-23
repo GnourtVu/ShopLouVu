@@ -1,72 +1,29 @@
-
 <!DOCTYPE html>
 <html>
+
 <head>
-   @include('admin.head')
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="/template/admin/dist/css/admin.css">
 </head>
+
 <body class="hold-transition login-page">
-<div class="login-box">
-  <div class="login-logo">
-    <a href="../../index2.html"><b>LouVu-Shop</a>
-  </div>
-  <!-- /.login-logo -->
-  <div class="card">
-    <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
-         @include('admin.alert')
-      <form action="/admin/users/login/store" method="post">
-        <div class="input-group mb-3">
-          <input type="email" name="email" class="form-control" placeholder="Email">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" name="password" class="form-control" placeholder="Password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember" name="remember">
-              <label for="remember">
-                Remember Me
-              </label>
-            </div>
-          </div>
-          <!-- /.col -->
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-          </div>
-          <!-- /.col -->
-        </div>
-        @csrf
-      </form>
-
-
-      <!-- /.social-auth-links -->
-
-      <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password ?</a>
-      </p>
-      <p class="mb-0">
-        <span><a href="register.html" class="text-center">Don't have an account? -> Register</a></span>
-      </p>
+    <div class="loginBox">
+        <h2>LouVu Admin</h2>
+        @include('admin.alert')
+        <form action="/admin/users/login/store" method="post">
+            <p>Email</p>
+            <input type="email" name="email" placeholder="Enter Email">
+            <p>Password</p>
+            <input type="password" name="password" placeholder="••••••••">
+            <input type="submit" name="" value="LOGIN">
+            <a href="#" class="a">Forgot Password?</a>
+            <h4>Create account? <a class="txt2" href="#">Sign Up</a></h4>
+            @csrf
+        </form>
     </div>
-    <!-- /.login-card-body -->
-  </div>
-</div>
-<!-- /.login-box -->
-
-<!-- jQuery -->
-<footer>
-    @include('admin.foot')
-</footer>
 </body>
+
 </html>

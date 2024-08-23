@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CartController as AdminCartController;
 use App\Http\Controllers\Admin\MainController;
 
 use App\Http\Controllers\Admin\MenuController;
@@ -55,6 +56,10 @@ Route::middleware(['auth'])->group(function () {
             Route::post('edit/{slider}', [SliderController::class, 'edit']);
             Route::DELETE('destroy', [SliderController::class, 'destroy']);
         });
+        //Cart-Order
+        Route::get('customer', [AdminCartController::class, 'index']);
+        Route::get('customer/view/{customer}', [AdminCartController::class, 'show']);
+        Route::DELETE('destroy', [AdminCartController::class, 'destroy']);
     });
 });
 //User
@@ -71,8 +76,10 @@ Route::post('/services/load-product', [UserMainController::class, 'loadProduct']
 Route::get('/categories/{id}-{name}.html', [UserMenuController::class, 'index']);
 //QuickView product
 Route::get('/product/{id}-{name}.html', [UserProductController::class, 'index']);
+Route::get('/product/{id}/quickview', [UserMainController::class, 'quickView'])->name('product.quickview');
 //Cart
 Route::get('/cart', [CartController::class, 'index']);
 Route::post('/add-cart', [CartController::class, 'add']);
 Route::post('/update-cart', [CartController::class, 'update']);
 Route::get('/delete-cart/{id}', [CartController::class, 'delete']);
+Route::post('/buy-cart', [CartController::class, 'buy']);

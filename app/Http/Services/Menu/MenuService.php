@@ -93,6 +93,28 @@ class MenuService
     {
         return Menu::where('id', $id)->where('active', 1)->firstOrFail();
     }
+    public function getmainProducts($request)
+    {
+        $query = Product::select('id', 'name', 'price', 'price_sale', 'thumb')
+            ->where('active', 1);
+        if ($request->input('price')) {
+            $query->orderBy('price', $request->input('price'));
+        }
+        if ($request->input('price_range')) {
+            switch ($request->input('price_range')) {
+                case 'low_price':
+                    $query->whereBetween('price', [100000, 199000]);
+                    break;
+                case 'medium_price':
+                    $query->whereBetween('price', [200000, 299000]);
+                    break;
+                case 'high_price':
+                    $query->Where('price', '>', 300000);
+                    break;
+            }
+        }
+        return  $query->orderByDesc('id')->paginate(16)->withQueryString();
+    }
     public function getProducts($menu, $request)
     {
         if ($request) {

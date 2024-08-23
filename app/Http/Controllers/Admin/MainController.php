@@ -14,4 +14,10 @@ class MainController extends Controller
             'title' => 'Admin Page'
         ]);
     }
+    public function index2()
+    {
+        return view('admin2.main', [
+            'title' => 'Admin Page'
+        ]);
+    }
 }

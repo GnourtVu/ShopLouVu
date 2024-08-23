@@ -10,9 +10,13 @@ class Customer extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-        'phone',
         'email',
-        'content',
-        'address'
+        'address',
+        'phone',
+        'content'
     ];
+    public function carts()
+    {
+        return $this->hasMany(Cart::class, 'customer_id', 'id');
+    }
 }

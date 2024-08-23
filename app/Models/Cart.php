@@ -11,15 +11,12 @@ class Cart extends Model
     protected $fillable = [
         'customer_id',
         'product_id',
-        'pty',
+        'qty',
         'price'
     ];
+    public $timestamps = false;
     public function product()
     {
-        return $this->hasMany(Product::class, 'id', 'product_id');
-    }
-    public function customer()
-    {
-        return $this->hasOne(Customer::class, 'customer_id', 'id');
+        return $this->hasOne(Product::class, 'id', 'product_id');
     }
 }

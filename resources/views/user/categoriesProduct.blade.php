@@ -4,7 +4,7 @@
         <div class="container">
             <div class="flex-w flex-sb-m p-b-52">
                 <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-                    <h1>{{ $title }}</h1>
+                    <h1>Category : {{ $title }}</h1>
                 </div>
 
                 <div class="flex-w flex-c-m m-tb-10">

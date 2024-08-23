@@ -15,8 +15,9 @@
         </div>
     </div>
     <!-- shopping cart-->
+    @include('admin.alert')
     @if (count($products) != 0)
-        <form class="bg0 p-t-75 p-b-85" method="post">
+        <form class="bg0 p-t-75 p-b-85" action="/buy-cart" method="post">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">

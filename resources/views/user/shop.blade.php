@@ -5,16 +5,19 @@
         <div class="container">
             <div class="flex-w flex-sb-m p-b-52">
                 <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-                    <a href="/user" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
+                    <a href="/user/shop" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*"
+                        data-link="shop">
                         All Products
                     </a>
-                    @foreach ($menus as $menu)
+                    {{-- @foreach ($menus as $menu)
                         <a href="/categories/{{ $menu->id }}-{{ $menu->name }}.html"
-                            class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
+                            class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women"
+                            data-link="category-{{ $menu->id }}">
                             {{ $menu->name }}
                         </a>
-                    @endforeach
+                    @endforeach --}}
                 </div>
+
                 <div class="flex-w flex-c-m m-tb-10">
                     <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
                         <i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>

@@ -32,10 +32,7 @@ class LoginController extends Controller
         } else {
             //Dùng session
             Session::flash('error', 'The email or password is not correct');
-            return redirect()->back()
-                // ->withErrors(['The email does not match our records'])
-                // ->withInput(); //giữ lại thông tin để ko phải nhập lại  
-            ;
+            return redirect()->back();
         }
     }
 }

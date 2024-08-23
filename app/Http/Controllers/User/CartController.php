@@ -54,4 +54,10 @@ class CartController extends Controller
         }
         return redirect('/cart');
     }
+    public function buy(Request $request)
+    {
+        $this->cartService->buy($request);
+        Session::flash('success', 'Order successful');
+        return redirect()->back();
+    }
 }

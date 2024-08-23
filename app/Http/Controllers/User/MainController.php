@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Services\Menu\MenuService;
 use Illuminate\Support\Facades\Session;
 use App\Http\Services\Cart\CartService;
+use App\Models\Product;
 
 class MainController extends Controller
 {
@@ -35,13 +36,28 @@ class MainController extends Controller
             'carts' => Session::get('carts'),
         ]);
     }
-    public function product()
+    public function quickView($id)
     {
+        $product = Product::find($id);
+        if (!$product) {
+            return response()->json(['error' => 'Product not found'], 404);
+        }
+
+        return response()->json($product);
+    }
+    // public function show($id)
+    // {
+    //     $product = Product::with('images')->findOrFail($id);
+    //     return response()->json($product);
+    // }
+    public function product(Request $request)
+    {
+        $productss = $this->menuService->getmainProducts($request);
         $products = $this->cartService->getProduct();
         return view('user.shop', [
             'title' => 'Shop LouVu',
             'menus' => $this->menuService->show(),
-            'productss' => $this->productService->get(),
+            'productss' => $productss,
             'products' => $products,
             'carts' => Session::get('carts'),
         ]);

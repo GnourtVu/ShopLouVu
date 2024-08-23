@@ -1,6 +1,12 @@
     <header>
         @php
             $menuHtml = \App\Helpers\Helper::menus($menus);
+            $count = 0;
+            if (is_null(Session::get('carts'))) {
+                $count = 0;
+            } else {
+                $count = count(Session::get('carts'));
+            }
         @endphp
         <!-- Header desktop -->
         <div class="container-menu-desktop">
@@ -44,7 +50,7 @@
                             <li>
                                 <a href="/user">Home</a>
                             </li>
-                            <li class="active-menu">
+                            <li>
                                 <a href="/user/shop">Shop</a>
                                 {!! $menuHtml !!}
                             </li>
@@ -65,7 +71,7 @@
                         </div>
 
                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                            data-notify="{{ count(\Illuminate\Support\Facades\Session::get('carts')) }}">
+                            data-notify="{{ $count }}">
 
                             <i class="zmdi zmdi-shopping-cart"></i>
                         </div>
@@ -93,7 +99,7 @@
                 </div>
 
                 <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
-                    data-notify="{{ count(\Illuminate\Support\Facades\Session::get('carts')) }}">
+                    data-notify="{{ $count }}">
                     <i class="zmdi zmdi-shopping-cart"></i>
                 </div>
             </div>
