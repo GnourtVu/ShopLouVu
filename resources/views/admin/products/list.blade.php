@@ -20,6 +20,7 @@
                 <th>Price</th>
                 <th>Price sale</th>
                 <th>Active</th>
+                <th>Quantity</th>
                 <th>Update</th>
                 <th style="width: 100px">Action</th>
             </tr>
@@ -33,6 +34,7 @@
                     <th>{{ $product->price }}</th>
                     <th>{{ $product->price_sale }}</th>
                     <th>{!! \App\Helpers\Helper::active($product->active) !!}</th>
+                    <th>{{ $product->qty_stock }}</th>
                     <th>{{ $product->updated_at }}</th>
                     <th>
                         <a href="/admin/products/edit/{{ $product->id }}" style="margin-right: 10px;"><i

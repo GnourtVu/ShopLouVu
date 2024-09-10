@@ -1,4 +1,4 @@
-    <div class="sec-banner bg0 p-t-80 p-b-50">
+    <div class="sec-banner bg0 p-t-80 p-b-20">
         <div class="container">
             <div class="row">
                 @foreach ($menus as $menu)
@@ -21,7 +21,7 @@
 
                                 <div class="block1-txt-child2 p-b-4 trans-05">
                                     <div class="block1-link stext-101 cl0 trans-09">
-                                        Shop Now
+                                        Mua ngay
                                     </div>
                                 </div>
                             </a>

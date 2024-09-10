@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Services\Cart\CartService;
+use App\Models\Cart;
 use App\Models\Customer;
 use App\Models\Product;
 use Illuminate\Support\Facades\Session;
@@ -42,10 +43,12 @@ class CartController extends Controller
     }
     public function show(Customer $customer)
     {
+        $order = Cart::select('discount', 'total')->where('customer_id', $customer->id)->first();
         return view('admin.carts.viewOrder', [
             'title' => 'Order detail ',
             'customer' => $customer,
             'carts' => $customer->carts()->with('product')->get(),
+            'order' => $order
         ]);
     }
 }

@@ -1,1 +1,1 @@
-<h1>Có 1 đơn hàng mới</h1>
+<h1>Bạn có một đơn hàng.Vui lòng nhận hàng và thanh toán đúng hẹn!</h1>

@@ -21,14 +21,14 @@ class ProductController extends Controller
         $this->menuService = $menuService;
         $this->cartService = $cartService;
     }
-    public function index($id = '', $name = '')
+    public function index($id = '')
     {
         $products = $this->cartService->getProduct();
-        $product = $this->productService->showProductById($id);
+        $productDt = $this->productService->showProductById($id);
         $productss = $this->productService->moreProduct($id);
         return view('user.contentProduct', [
             'title' => 'Content Product',
-            'product' => $product,
+            'productDt' => $productDt,
             'menus' => $this->menuService->show(),
             'productss' => $productss,
             'products' => $products,

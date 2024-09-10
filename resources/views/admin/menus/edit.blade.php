@@ -35,6 +35,11 @@
                         <textarea name="content" id="content" cols="30" rows="10" class="form-control">{{ $menu->content }}</textarea>
                     </div>
                     <div class="form-group">
+                        <label for="menu">Slug</label>
+                        <input type="text" class="form-control" name="slug" value="{{ $menu->slug }}" id="menu"
+                            placeholder="Enter slug">
+                    </div>
+                    <div class="form-group">
                         <label for="menu">Active</label>
                         <div class="custom-control custom-radio">
                             <input class="custom-control-input" value="1" type="radio" id="active" name="active"

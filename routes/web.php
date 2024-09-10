@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CartController as AdminCartController;
+use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\MainController;
 
 use App\Http\Controllers\Admin\MenuController;
@@ -36,6 +37,15 @@ Route::middleware(['auth'])->group(function () {
             Route::post('create', [MenuController::class, 'store'])->name('store');
             Route::DELETE('destroy', [MenuController::class, 'destroy'])->name('destroy');
         });
+        //Discount
+        Route::prefix('discounts')->group(function () {
+            Route::get('create', [DiscountController::class, 'index']);
+            Route::post('create', [DiscountController::class, 'store']);
+            Route::get('list', [DiscountController::class, 'show']);
+            Route::get('edit/{discount}', [DiscountController::class, 'edit']);
+            Route::post('edit/{discount}', [DiscountController::class, 'update']);
+            Route::DELETE('destroy', [DiscountController::class, 'destroy']);
+        });
         //Route Product 
         Route::prefix('products')->group(function () {
             Route::get('create', [ProductController::class, 'create']);
@@ -70,16 +80,22 @@ Route::prefix('user')->group(function () {
     Route::get('contact', [UserMainController::class, 'contact']);
     //About
     Route::get('about', [UserMainController::class, 'about']);
+    //discount
+    Route::post('apply_discount', [CartController::class, 'apply_discount'])->name('apply_discount');
 });
 Route::post('/services/load-product', [UserMainController::class, 'loadProduct']);
 //Product with category
-Route::get('/categories/{id}-{name}.html', [UserMenuController::class, 'index']);
+Route::get('/categories/{id}-{slug}.html', [UserMenuController::class, 'index'])->name('categories.show');
+
 //QuickView product
 Route::get('/product/{id}-{name}.html', [UserProductController::class, 'index']);
 Route::get('/product/{id}/quickview', [UserMainController::class, 'quickView'])->name('product.quickview');
+Route::get('/size-chart', [UserMainController::class, 'getSizeChart'])->name('size_chart');
 //Cart
 Route::get('/cart', [CartController::class, 'index']);
+// Route::get('/order', [CartController::class, 'order']);
 Route::post('/add-cart', [CartController::class, 'add']);
 Route::post('/update-cart', [CartController::class, 'update']);
 Route::get('/delete-cart/{id}', [CartController::class, 'delete']);
 Route::post('/buy-cart', [CartController::class, 'buy']);
+Route::get('/order-cart', [CartController::class, 'order']);

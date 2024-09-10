@@ -29,6 +29,14 @@
     </div>
 
     <!-- Modal1 -->
+    <!-- Modal hiển thị bảng kích thước -->
+    <div id="sizeChartModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="sizeChartImage" src="" alt="Bảng kích thước" style="width: 100%; max-width: 600px;">
+        </div>
+    </div>
+
     <div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
         <div class="overlay-modal1 js-hide-modal1"></div>
         <form action="/add-cart" method="post">
@@ -72,7 +80,17 @@
                                                 </a>
                                             </div>
                                         </div>
+                                        <div class="item-slick3" data-thumb="">
+                                            <div class="wrap-pic-w pos-relative">
+                                                <img src="" alt="IMG-PRODUCT">
+                                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+                                                    href="">
+                                                    <i class="fa fa-expand"></i>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -84,7 +102,8 @@
                                 </span>
                                 <p class="stext-102 cl3 p-t-23">
                                 </p>
-                                <!--  -->
+                                <h5 class="stext-103 cl3 p-t-23">
+                                </h5>
                                 <div class="p-t-33">
                                     <div class="flex-w flex-r-m p-b-10">
                                         <div class="size-203 flex-c-m respon6">
@@ -93,28 +112,11 @@
                                         <div class="size-204 respon6-next">
                                             <div class="rs1-select2 bor8 bg0">
                                                 <select class="js-select2" name="time">
-                                                    <option>Choose an option</option>
+                                                    <option>Chọn size phù hợp</option>
                                                     <option>Size S</option>
                                                     <option>Size M</option>
                                                     <option>Size L</option>
                                                     <option>Size XL</option>
-                                                </select>
-                                                <div class="dropDownSelect2"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex-w flex-r-m p-b-10">
-                                        <div class="size-203 flex-c-m respon6">
-                                            Color
-                                        </div>
-                                        <div class="size-204 respon6-next">
-                                            <div class="rs1-select2 bor8 bg0">
-                                                <select class="js-select2" name="time">
-                                                    <option>Choose an option</option>
-                                                    <option>Red</option>
-                                                    <option>Blue</option>
-                                                    <option>White</option>
-                                                    <option>Grey</option>
                                                 </select>
                                                 <div class="dropDownSelect2"></div>
                                             </div>
@@ -135,7 +137,7 @@
                                             @csrf
                                             <button type="submit"
                                                 class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                                Add to cart
+                                                Thêm vào giỏ hàng
                                             </button>
 
                                         </div>

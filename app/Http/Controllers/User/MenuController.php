@@ -18,12 +18,25 @@ class MenuController extends Controller
         $this->menuService = $menuService;
         $this->cartService = $cartService;
     }
-    public function index(Request $request, $id, $name)
+    public function index(Request $request, $id, $slug)
     {
-        $products = $this->cartService->getProduct();
+        // Lấy danh mục theo id
         $menu = $this->menuService->getId($id);
-        $menus = $this->menuService->getMenu();
+
+        // Kiểm tra nếu không tìm thấy danh mục
+        if (!$menu) {
+            abort(404);
+        }
+
+        // Kiểm tra tính hợp lệ của slug
+        if ($menu->slug !== $slug) {
+            return redirect()->route('categories.show', ['id' => $menu->id, 'slug' => $menu->slug], 301);
+        }
+
+        $products = $this->cartService->getProduct();
+        $menus = $this->menuService->show();
         $productss = $this->menuService->getProducts($menu, $request);
+
         return view('user.categoriesProduct', [
             'title' => $menu->name,
             'productss' => $productss,

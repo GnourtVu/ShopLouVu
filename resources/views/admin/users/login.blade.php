@@ -19,8 +19,8 @@
             <p>Password</p>
             <input type="password" name="password" placeholder="••••••••">
             <input type="submit" name="" value="LOGIN">
-            <a href="#" class="a">Forgot Password?</a>
-            <h4>Create account? <a class="txt2" href="#">Sign Up</a></h4>
+            {{-- <a href="#" class="a">Forgot Password?</a>
+            <h4>Create account? <a class="txt2" href="#">Sign Up</a></h4> --}}
             @csrf
         </form>
     </div>

@@ -3,6 +3,66 @@
 
 <head>
     @include('admin.head')
+    <style>
+        /* Đảm bảo các nút nằm ở đúng vị trí */
+        .user-menu .user-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        /* Thiết kế nút trong footer */
+        .user-menu .user-footer .btn {
+            border-radius: 2px;
+            background-color: #f4f4f4;
+            color: #333;
+            width: 100px;
+            /* Bạn có thể tùy chỉnh độ rộng nút theo ý muốn */
+        }
+
+        /* Đảm bảo ảnh người dùng được căn chỉnh và bo tròn */
+        .user-menu .user-image,
+        .user-menu .img-circle {
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            object-fit: cover;
+        }
+
+        /* Nền và căn chỉnh văn bản trong dropdown header */
+        .user-menu .user-header {
+            background-color: #3c8dbc;
+            text-align: center;
+            padding: 10px;
+            color: #fff;
+        }
+
+        .user-menu .user-header p {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        /* Đảm bảo rằng các phần tử user-menu có chiều cao đồng nhất với các phần tử dropdown khác */
+        .navbar-nav>.user-menu>.dropdown-toggle,
+        .navbar-nav>.nav-item>.nav-link {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            height: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Đảm bảo các ảnh người dùng không làm thay đổi chiều cao của navbar */
+        .user-menu .user-image {
+            margin-right: 5px;
+        }
+
+        /* Tùy chọn để giảm khoảng cách giữa các mục trong navbar */
+        .navbar-nav>.user-menu>.dropdown-menu {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -62,6 +122,32 @@
                         <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                     </div>
                 </li>
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <img src="/template/user/images/lv1.jpg" class="user-image" alt="User Image">
+                        <span class="hidden-xs">Admin</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- User image -->
+                        <li class="user-header">
+                            <img src="/template/user/images/lv1.jpg" class="img-circle" alt="User Image">
+                            <p>LouVu</p>
+                        </li>
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="float-left">
+                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                            </div>
+                            <form action="/admin/users/logout" method="POST">
+                                <div class="float-right">
+                                    <button type="submit" class="btn btn-default btn-flat">Sign out</button>
+                                </div>
+                                @csrf
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+
             </ul>
         </nav>
         <!-- /.navbar -->

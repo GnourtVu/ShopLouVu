@@ -3,7 +3,7 @@
             <div class="row">
                 <div class="col-sm-6 col-lg-3 p-b-50">
                     <h4 class="stext-301 cl0 p-b-30">
-                        Categories
+                        Danh mục
                     </h4>
                     <ul>
                         @foreach ($menus as $menu)
@@ -19,31 +19,31 @@
 
                 <div class="col-sm-6 col-lg-3 p-b-50">
                     <h4 class="stext-301 cl0 p-b-30">
-                        Help
+                        Dịch vụ khách hàng
                     </h4>
 
                     <ul>
                         <li class="p-b-10">
                             <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Track Order
+                                Thanh toán
                             </a>
                         </li>
 
                         <li class="p-b-10">
                             <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Returns
+                                Hoàn trả
                             </a>
                         </li>
 
                         <li class="p-b-10">
                             <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Shipping
+                                Vẫn chuyển
                             </a>
                         </li>
 
                         <li class="p-b-10">
                             <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                FAQs
+                                Đối tác
                             </a>
                         </li>
                     </ul>
@@ -51,12 +51,11 @@
 
                 <div class="col-sm-6 col-lg-3 p-b-50">
                     <h4 class="stext-301 cl0 p-b-30">
-                        GET IN TOUCH
+                        LouVu lắng nghe bạn
                     </h4>
-
                     <p class="stext-107 cl7 size-201">
-                        Any questions? Let us know in store at 2th floor,88 Tay Lai Xa,Kim Chung-Hoai Duc-Ha Noi.Phone
-                        number:0866805261
+                        Còn thắc mắc gì về LouVu ? Liên hệ trực tiếp với chúng tôi tại tầng 2,88 Tây Lai Xá,Kim
+                        Chung-Hoai Duc-Ha Noi.SDT:0866805261
                     </p>
 
                     <div class="p-t-27">
@@ -72,19 +71,19 @@
 
                 <div class="col-sm-6 col-lg-3 p-b-50">
                     <h4 class="stext-301 cl0 p-b-30">
-                        Newsletter
+                        Trở thành đối tác của LouVu
                     </h4>
 
                     <form>
                         <div class="wrap-input1 w-full p-b-4">
                             <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email"
-                                placeholder="trlovu24@GMAIL.COM">
+                                placeholder="trlovu24@gmail.com">
                             <div class="focus-input1 trans-04"></div>
                         </div>
 
                         <div class="p-t-18">
                             <button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
-                                Subscribe
+                                Liên hệ ngay
                             </button>
                         </div>
                     </form>

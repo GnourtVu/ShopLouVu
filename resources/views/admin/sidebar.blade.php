@@ -25,6 +25,19 @@
                   <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                   <li class="nav-item has-treeview">
+                      <a href="/admin/main" class="nav-link">
+                          <i class="fa-solid fa-gauge-high"></i>
+                          <p>
+                              Dashbroad
+                          </p>
+                      </a>
+                  </li>
+              </ul>
+              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                  data-accordion="false">
+                  <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+                  <li class="nav-item has-treeview">
                       <a href="#" class="nav-link">
                           <i class="fa-solid fa-list"></i>
                           <p>
@@ -101,6 +114,35 @@
                               <a href="/admin/sliders/index"class="nav-link">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>List Sliders</p>
+                              </a>
+                          </li>
+
+                      </ul>
+                  </li>
+              </ul>
+              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                  data-accordion="false">
+                  <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+                  <li class="nav-item has-treeview">
+                      <a href="#" class="nav-link">
+                          <i class="fa-solid fa-tags"></i>
+                          <p>
+                              Discounts
+                              <i class="right fas fa-angle-left"></i>
+                          </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                          <li class="nav-item">
+                              <a href="/admin/discounts/create" class="nav-link">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Create Discount</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="/admin/discounts/list"class="nav-link">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>List Discount</p>
                               </a>
                           </li>
 

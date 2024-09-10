@@ -34,21 +34,45 @@ class ProductService
         if ($isValidPrice === false) {
             return false;
         }
+
         try {
-            $request->except('_token');
-            Product::create($request->all());
+            // Xử lý ảnh
+            $data = $request->except('_token');
+
+            if ($request->hasFile('image1')) {
+                $file = $request->file('image1');
+                $path = $file->store('uploads', 'public');
+                $data['image1'] = '/storage/' . $path;
+            }
+
+            if ($request->hasFile('image2')) {
+                $file = $request->file('image2');
+                $path = $file->store('uploads', 'public');
+                $data['image2'] = '/storage/' . $path;
+            }
+
+            if ($request->hasFile('image3')) {
+                $file = $request->file('image3');
+                $path = $file->store('uploads', 'public');
+                $data['image3'] = '/storage/' . $path;
+            }
+
+            Product::create($data);
+
             Session::flash('success', 'Create product successful');
         } catch (\Exception $e) {
             Session::flash('error', 'Create product failed');
             Log::error($e->getMessage());
             return false;
         }
+
         return true;
     }
+
     public function get()
     {
         return Product::with('menu')
-            ->orderByDesc('id')->paginate(8);
+            ->orderByDesc('id')->paginate(20);
     }
     public function destroy($request)
     {
@@ -64,13 +88,36 @@ class ProductService
     public function getProduct($request, $product): bool
     {
         try {
-            $product->fill($request->input());
+            // Xử lý ảnh
+            $data = $request->input();
+
+            if ($request->hasFile('image1')) {
+                $file = $request->file('image1');
+                $path = $file->store('uploads', 'public');
+                $data['image1'] = '/storage/' . $path;
+            }
+
+            if ($request->hasFile('image2')) {
+                $file = $request->file('image2');
+                $path = $file->store('uploads', 'public');
+                $data['image2'] = '/storage/' . $path;
+            }
+
+            if ($request->hasFile('image3')) {
+                $file = $request->file('image3');
+                $path = $file->store('uploads', 'public');
+                $data['image3'] = '/storage/' . $path;
+            }
+
+            $product->fill($data);
             $product->save();
+
             Session::flash('success', 'Update successful');
         } catch (\Exception $e) {
             Session::flash('error', $e->getMessage());
             return false;
         }
+
         return true;
     }
 }

@@ -12,7 +12,9 @@ class Cart extends Model
         'customer_id',
         'product_id',
         'qty',
-        'price'
+        'price',
+        'discount',
+        'total'
     ];
     public $timestamps = false;
     public function product()

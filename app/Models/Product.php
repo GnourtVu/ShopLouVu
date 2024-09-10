@@ -19,7 +19,8 @@ class Product extends Model
         'thumb',
         'image1',
         'image2',
-        'image3'
+        'image3',
+        'qty_stock'
     ];
     public function menu()
     {

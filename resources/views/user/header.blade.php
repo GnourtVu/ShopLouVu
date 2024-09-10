@@ -11,31 +11,17 @@
         <!-- Header desktop -->
         <div class="container-menu-desktop">
             <!-- Topbar -->
-            {{-- <div class="top-bar">
+            <div class="top-bar">
                 <div class="content-topbar flex-sb-m h-full container">
-                    <div class="left-top-bar">
-                        Free shipping for standard order over $100
+                    <div class="left-top-bar marquee">
+                        <i>Miễn phí vận chuyển cho đơn hàng trên 500,000đ.</i>
                     </div>
-
                     <div class="right-top-bar flex-w h-full">
-                        <a href="#" class="flex-c-m trans-04 p-lr-25">
-                            Help & FAQs
-                        </a>
-
-                        <a href="#" class="flex-c-m trans-04 p-lr-25">
-                            My Account
-                        </a>
-
-                        <a href="#" class="flex-c-m trans-04 p-lr-25">
-                            EN
-                        </a>
-
-                        <a href="#" class="flex-c-m trans-04 p-lr-25">
-                            USD
-                        </a>
+                        <a href="#" class="flex-c-m trans-04 p-lr-25">VI</a>
+                        <a href="#" class="flex-c-m trans-04 p-lr-25">EN</a>
                     </div>
                 </div>
-            </div> --}}
+            </div>
 
             <div class="wrap-menu-desktop">
                 <nav class="limiter-menu-desktop container">
@@ -48,18 +34,18 @@
                     <div class="menu-desktop">
                         <ul class="main-menu">
                             <li>
-                                <a href="/user">Home</a>
+                                <a href="/user">Trang chủ</a>
                             </li>
                             <li>
                                 <a href="/user/shop">Shop</a>
                                 {!! $menuHtml !!}
                             </li>
                             <li>
-                                <a href="/user/about">About</a>
+                                <a href="/user/about">Tin hot</a>
                             </li>
 
                             <li>
-                                <a href="/user/contact">Contact</a>
+                                <a href="/user/contact">Liên hệ</a>
                             </li>
                         </ul>
                     </div>
@@ -78,7 +64,7 @@
                         <a href="#"
                             class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
                             data-notify="0">
-                            <i class="zmdi zmdi-favorite-outline"></i>
+                            <i class="fa-solid fa-book"></i>
                         </a>
                     </div>
                 </nav>

@@ -19,13 +19,14 @@
                     <th class="column-6"> </th>
                 </tr>
                 @php
-                    $total = 0;
+                    $discount = $order->discount;
+                    $total = $order->total;
                 @endphp
                 @foreach ($carts as $key => $cart)
                     @php
                         $price = $cart->price;
                         $priceEnd = $price * $cart->qty;
-                        $total += $priceEnd;
+
                     @endphp
                     <tr>
                         <td class="column-1">
@@ -42,8 +43,12 @@
                     </tr>
                 @endforeach
                 <tr>
+                    <td colspan="4" class="text-right"><strong>Discount :</strong></td>
+                    <td style="color: red">-{{ number_format($discount, 0, '.', ',') }}đ</td>
+                </tr>
+                <tr>
                     <td colspan="4" class="text-right"><strong>Total :</strong></td>
-                    <td> {{ number_format($total, 0, '.', ',') }}đ</td>
+                    <td>{{ number_format($total, 0, '.', ',') }}đ</td>
                 </tr>
             </tbody>
         </table>

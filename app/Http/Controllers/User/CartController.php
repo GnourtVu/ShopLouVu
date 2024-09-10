@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Services\Cart\CartService;
 use App\Http\Services\Menu\MenuService;
+use App\Models\Discount;
 use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
@@ -35,7 +36,8 @@ class CartController extends Controller
         if ($result === false) {
             return redirect()->back();
         } else {
-            return redirect('/cart');
+            Session::flash('success', 'Thêm vào giỏ hàng thành công');
+            return redirect()->back();
         }
     }
     public function update(Request $request)
@@ -57,7 +59,28 @@ class CartController extends Controller
     public function buy(Request $request)
     {
         $this->cartService->buy($request);
-        Session::flash('success', 'Order successful');
         return redirect()->back();
+    }
+    public function order()
+    {
+        $products = $this->cartService->getProduct();
+        return view('user.order', [
+            'title' => 'Order View',
+            'menus' => $this->menuService->show(),
+            'products' => $products,
+            'carts' => Session::get('carts')
+        ]);
+    }
+    public function apply_discount(Request $request)
+    {
+        $code = $request->input('code');
+        $discount = Discount::where('code', $code)->where('active', 1)->first();
+        if ($discount) {
+            Session::put('discount', $discount->discount);
+            return redirect()->back()->with('success', 'Mã giảm giá được áp dụng');
+        } else {
+            Session::forget('discount');
+            return redirect()->back()->with('error', 'Mã giảm giá không hợp lệ');
+        }
     }
 }

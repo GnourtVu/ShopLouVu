@@ -56,6 +56,10 @@
                             <label for="no_active" class="custom-control-label">No</label>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <label for="menu">Quantity stock</label>
+                        <input type="text" class="form-control" name="qty_stock" value="{{ old('qty_stock') }}">
+                    </div>
                     <div class="form-group">
                         <label for="menu">Image Main</label>
                         <input type="file" name="file" class="form-control" id="upload">

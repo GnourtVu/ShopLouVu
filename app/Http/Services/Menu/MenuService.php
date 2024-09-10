@@ -16,20 +16,29 @@ class MenuService
     }
     public function show()
     {
-        return Menu::select('name', 'id', 'thumb')->where('parent_id', 0)->orderbyDesc('id')->get();
+        return Menu::select('name', 'id', 'thumb', 'slug')->where('parent_id', 0)->orderbyDesc('id')->get();
     }
     public function getMenu()
     {
         return Menu::where('active', 1)->get();
     }
+    public function getBySlug($slug)
+    {
+        return Menu::where('slug', $slug)->first();
+    }
+
     public function getAll()
     {
-        return Menu::orderbyDesc('id')->paginate(20);
+        return Menu::orderbyDesc('id')->get();
     }
     public function create($request, $menu)
     {
         try {
-            $check = Menu::where('name', $request->input('name'))->first();
+            // Kiểm tra trùng lặp danh mục con cùng tên dưới cùng một danh mục cha
+            $check = Menu::where('name', $request->input('name'))
+                ->where('parent_id', $request->input('parent_id'))
+                ->first();
+
             if (!$check) {
                 Menu::create([
                     'name' => (string) $request->input('name'),
@@ -37,17 +46,22 @@ class MenuService
                     'description' => (string) $request->input('description'),
                     'content' => (string) $request->input('content'),
                     'active' => (int) $request->input('active'),
-                    'thumb' => (string) $request->input(''),
-                    'slug' => Str::slug($request->input('name'), '-')
+                    'thumb' => (string) $request->input('thumb'),
+                    'slug' => Str::slug($request->input('name') . '-' . Str::slug($request->input('parent_id')), '-')
                 ]);
                 Session::flash('success', 'Create category successful');
                 return true;
+            } else {
+                // Nếu danh mục đã tồn tại dưới cùng danh mục cha
+                Session::flash('error', 'Category with this name already exists under the same parent.');
+                return false;
             }
         } catch (Exception $e) {
             Session::flash('error', $e->getMessage());
             return false;
         }
     }
+
     public function destroy($request)
     {
         $id = $request->input('id');
@@ -67,28 +81,34 @@ class MenuService
         return false;
     }
 
-    public function edit($menu, $request): bool
+    public function edit($menu, $request)
     {
-        // try {
-        //     $menu->fill($request->input());
-        //     $menu->save();
-        //     Session::flash('success', 'Update successful');
-        // } catch (Exception $e) {
-        //     Session::flash('error', $e->getMessage());
-        // }
+        $newSlug = Str::slug($request->input('name'));
 
-        if ($request->input('parent_id') != $menu->id) {
-            $menu->parent_id = (int)$request->input('parent_id');
+        // Kiểm tra xem slug mới có trùng với slug hiện tại không
+        if ($menu->slug !== $newSlug) {
+            // Kiểm tra xem slug đã tồn tại hay chưa
+            $existingMenu = Menu::where('slug', $newSlug)->first();
+
+            // Nếu slug đã tồn tại, bạn có thể thêm số vào để tạo slug duy nhất
+            if ($existingMenu) {
+                $i = 1;
+                while ($existingMenu) {
+                    $newSlug = Str::slug($request->input('name') . '-' . $i);
+                    $existingMenu = Menu::where('slug', $newSlug)->first();
+                    $i++;
+                }
+            }
         }
-        $menu->name = (string)$request->input('name');
-        $menu->description = (string) $request->input('description');
-        $menu->content = (string) $request->input('content');
-        $menu->thumb = (string) $request->input('thumb');
-        $menu->active = (int) $request->input('active');
+
+        // Cập nhật danh mục
+        $menu->name = $request->input('name');
+        $menu->slug = $newSlug;
         $menu->save();
-        Session::flash('success', 'Update successful');
-        return true;
+
+        return redirect('/admin/menu/list');
     }
+
     public function getId($id)
     {
         return Menu::where('id', $id)->where('active', 1)->firstOrFail();
@@ -115,13 +135,16 @@ class MenuService
         }
         return  $query->orderByDesc('id')->paginate(16)->withQueryString();
     }
+
     public function getProducts($menu, $request)
     {
-        if ($request) {
-            $query = $menu->products()
-                ->select('id', 'name', 'price', 'price_sale', 'thumb')
-                ->where('active', 1);
-        }
+        // Lấy tất cả các id của danh mục con (bao gồm danh mục gốc)
+        $categoryIds = $this->getAllCategoryIds($menu);
+
+        // Truy vấn sản phẩm dựa trên danh sách id vừa thu thập được
+        $query = Product::select('id', 'name', 'price', 'price_sale', 'thumb', 'image1', 'image2', 'image3')
+            ->where('active', 1)
+            ->whereIn('menu_id', $categoryIds);
 
         if ($request->input('price')) {
             $query->orderBy('price', $request->input('price'));
@@ -139,6 +162,17 @@ class MenuService
                     break;
             }
         }
-        return  $query->orderByDesc('id')->paginate(8)->withQueryString();
+
+        return $query->orderByDesc('id')->paginate(12)->withQueryString();
+    }
+
+    private function getAllCategoryIds($menu)
+    {
+        // Lấy tất cả các id của danh mục con và đệ quy cho các danh mục con của nó
+        $ids = [$menu->id];
+        foreach ($menu->children as $child) {
+            $ids = array_merge($ids, $this->getAllCategoryIds($child));
+        }
+        return $ids;
     }
 }

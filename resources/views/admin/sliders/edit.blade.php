@@ -19,6 +19,10 @@
                         <input type="text" class="form-control" name="url" value="{{ $slider->url }}">
                     </div>
                     <div class="form-group">
+                        <label for="menu">Content</label>
+                        <textarea name="des"cols="5" rows="2" class="form-control">{{ $slider->des }}</textarea>
+                    </div>
+                    <div class="form-group">
                         <label for="menu">Sort</label>
                         <input type="number" name="sort_by" value="{{ $slider->sort_by }}" class="form-control">
                     </div>

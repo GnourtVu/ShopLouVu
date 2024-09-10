@@ -13,6 +13,7 @@ class Slider extends Model
         'url',
         'sort_by',
         'active',
-        'thumb'
+        'thumb',
+        'des'
     ];
 }
