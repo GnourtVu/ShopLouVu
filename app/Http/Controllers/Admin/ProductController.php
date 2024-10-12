@@ -6,12 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\ProductRequest;
 use App\Http\Services\Menu\MenuService;
 use App\Http\Services\Product\ProductService;
+use App\Models\Color;
 use App\Models\Product;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Menu;
+use App\Models\Message;
+use App\Models\Size;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -29,8 +33,12 @@ class ProductController extends Controller
     public function index()
     {
         //
+        $messages = Message::select('email', 'content')->orderByDesc('id')->get();
+        $msCount = Message::count();
         return view('admin.products.list', [
             'title' => 'List Products',
+            'messages' => $messages,
+            'msCount' => $msCount,
             'products' => $this->productService->get(),
         ]);
     }
@@ -41,8 +49,16 @@ class ProductController extends Controller
     public function create()
     {
         //
+        $messages = Message::select('email', 'content')->orderByDesc('id')->get();
+        $msCount = Message::count();
+        $sizes = Size::get();
+        $colors = Color::get();
         return view('admin.products.create', [
             'title' => 'Create Product',
+            'messages' => $messages,
+            'colors' => $colors,
+            'sizes' => $sizes,
+            'msCount' => $msCount,
             'menus' => $this->productService->getMenu()
         ]);
     }
@@ -76,11 +92,21 @@ class ProductController extends Controller
     }
     public function show(Menu $menu, Product $product)
     {
+        $quantities = $product->getQuantitiesBySizeAndColor();
+        $messages = Message::select('email', 'content')->orderByDesc('id')->get();
+        $msCount = Message::count();
+        $colors = Color::all();
+        $sizes = Size::all();
         return view('admin.products.edit', [
             'title' => 'Edit product',
             'product' => $product,
+            'messages' => $messages,
+            'msCount' => $msCount,
             'menu' => $menu,
-            'menus' => $this->productService->getMenu()
+            'sizes' => $sizes,
+            'colors' => $colors,
+            'menus' => $this->productService->getMenu(),
+            'quantities' => $quantities
         ]);
     }
     /**

@@ -18,19 +18,38 @@
                                    class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                    {{ $product->name }}
                                </a>
+                               <div
+                                   style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                                   <span class="stext-105 cl3">
+                                       <u>đ</u>{{ number_format($product->price_sale, 0, '.', ',') }}
+                                   </span>
+                                   @if ($product->price_sale < $product->price)
+                                       <span class="stext-105 cl4 original-price">
+                                           <u>đ</u>{{ number_format($product->price, 0, '.', ',') }}
+                                       </span>
+                                   @else
+                                   @endif
+                                   <span><i>Đã bán {{ $product->total_qty }}</i></span>
+                               </div>
 
-                               <span class="stext-105 cl3">
-                                   <u>đ</u>{!! \App\Helpers\Helper::price($product->price, $product->price_sale) !!}
+                               <span class="fs-18 cl11">
+                                   <!-- Hiển thị số sao dựa trên giá trị rating -->
+                                   @php
+                                       $starTb = $starRatings[$product->id] ?? 0; // Lấy giá trị starTb từ mảng starRatings
+                                   @endphp
+                                   @for ($i = 1; $i <= 5; $i++)
+                                       @if ($i <= floor($starTb))
+                                           <!-- Sao đầy -->
+                                           <i class="zmdi zmdi-star"></i>
+                                       @elseif($i == ceil($starTb))
+                                           <!-- Sao nửa -->
+                                           <i class="zmdi zmdi-star-half"></i>
+                                       @else
+                                           <!-- Sao trống -->
+                                           <i class="zmdi zmdi-star-outline"></i>
+                                       @endif
+                                   @endfor
                                </span>
-                           </div>
-
-                           <div class="block2-txt-child2 flex-r p-t-3">
-                               <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                                   <img class="icon-heart1 dis-block trans-04"
-                                       src="/template/user/images/icons/icon-heart-01.png" alt="ICON">
-                                   <img class="icon-heart2 dis-block trans-04 ab-t-l"
-                                       src="/template/user/images/icons/icon-heart-02.png" alt="ICON">
-                               </a>
                            </div>
                        </div>
                    </div>

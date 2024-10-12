@@ -28,7 +28,7 @@
                       <a href="/admin/main" class="nav-link">
                           <i class="fa-solid fa-gauge-high"></i>
                           <p>
-                              Dashbroad
+                              Trang chủ
                           </p>
                       </a>
                   </li>
@@ -41,7 +41,7 @@
                       <a href="#" class="nav-link">
                           <i class="fa-solid fa-list"></i>
                           <p>
-                              Categories
+                              Danh mục
                               <i class="right fas fa-angle-left"></i>
                           </p>
                       </a>
@@ -49,13 +49,13 @@
                           <li class="nav-item">
                               <a href="{{ route('create') }}" class="nav-link">
                                   <i class="far fa-circle nav-icon"></i>
-                                  <p>Create Category</p>
+                                  <p>Thêm mới</p>
                               </a>
                           </li>
                           <li class="nav-item">
                               <a href="{{ route('list') }}"class="nav-link">
                                   <i class="far fa-circle nav-icon"></i>
-                                  <p>List Categories</p>
+                                  <p>Danh sách</p>
                               </a>
                           </li>
 
@@ -70,7 +70,7 @@
                       <a href="#" class="nav-link">
                           <i class="fa-brands fa-product-hunt"></i>
                           <p>
-                              Products
+                              Sản phẩm
                               <i class="right fas fa-angle-left"></i>
                           </p>
                       </a>
@@ -78,13 +78,13 @@
                           <li class="nav-item">
                               <a href="/admin/products/create" class="nav-link">
                                   <i class="far fa-circle nav-icon"></i>
-                                  <p>Create Product</p>
+                                  <p>Thêm mới</p>
                               </a>
                           </li>
                           <li class="nav-item">
                               <a href="/admin/products/index"class="nav-link">
                                   <i class="far fa-circle nav-icon"></i>
-                                  <p>List Products</p>
+                                  <p>Danh sách</p>
                               </a>
                           </li>
 
@@ -107,13 +107,13 @@
                           <li class="nav-item">
                               <a href="/admin/sliders/create" class="nav-link">
                                   <i class="far fa-circle nav-icon"></i>
-                                  <p>Create Slider</p>
+                                  <p>Thêm mới</p>
                               </a>
                           </li>
                           <li class="nav-item">
                               <a href="/admin/sliders/index"class="nav-link">
                                   <i class="far fa-circle nav-icon"></i>
-                                  <p>List Sliders</p>
+                                  <p>Danh sách</p>
                               </a>
                           </li>
 
@@ -128,7 +128,7 @@
                       <a href="#" class="nav-link">
                           <i class="fa-solid fa-tags"></i>
                           <p>
-                              Discounts
+                              Giảm giá
                               <i class="right fas fa-angle-left"></i>
                           </p>
                       </a>
@@ -136,13 +136,13 @@
                           <li class="nav-item">
                               <a href="/admin/discounts/create" class="nav-link">
                                   <i class="far fa-circle nav-icon"></i>
-                                  <p>Create Discount</p>
+                                  <p>Thêm mới</p>
                               </a>
                           </li>
                           <li class="nav-item">
                               <a href="/admin/discounts/list"class="nav-link">
                                   <i class="far fa-circle nav-icon"></i>
-                                  <p>List Discount</p>
+                                  <p>Danh sách</p>
                               </a>
                           </li>
 
@@ -155,20 +155,55 @@
                with font-awesome or any other icon font library -->
                   <li class="nav-item has-treeview">
                       <a href="#" class="nav-link">
-                          <i class="fa-solid fa-cart-shopping"></i>
+                          <i class="fa-solid fa-users"></i>
                           <p>
-                              Orders
+                              Khách hàng
                               <i class="right fas fa-angle-left"></i>
                           </p>
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
-                              <a href="/admin/customer"class="nav-link">
+                              <a href="/admin/customerList"class="nav-link">
                                   <i class="far fa-circle nav-icon"></i>
-                                  <p>List orders</p>
+                                  <p>Danh sách</p>
                               </a>
                           </li>
                       </ul>
+                  </li>
+              </ul>
+              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                  data-accordion="false">
+                  <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+                  <li class="nav-item has-treeview">
+                      <a href="#" class="nav-link">
+                          <i class="fa-solid fa-cart-shopping"></i>
+                          <p>
+                              Đơn hàng
+                              <i class="right fas fa-angle-left"></i>
+                          </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                          <li class="nav-item">
+                              <a href="/admin/order"class="nav-link">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Danh sách</p>
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
+              </ul>
+              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                  data-accordion="false">
+                  <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+                  <li class="nav-item has-treeview">
+                      <a href="/admin/statis" class="nav-link">
+                          <i class="fa-solid fa-print"></i>
+                          <p>
+                              Thống kê
+                          </p>
+                      </a>
                   </li>
               </ul>
           </nav>

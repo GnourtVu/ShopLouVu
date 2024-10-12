@@ -56,32 +56,44 @@
                             <label for="no_active" class="custom-control-label">No</label>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <label for="menu">Quantity stock</label>
-                        <input type="text" class="form-control" name="qty_stock" value="{{ old('qty_stock') }}">
+                    <div class="form-group">
+                        <label for="sizes_colors">Sizes and Colors</label>
+                        <div class="row">
+                            @foreach ($sizes as $size)
+                                @foreach ($colors as $color)
+                                    <div class="col-md-4">
+                                        <label>{{ $size->name }} - {{ $color->name }}</label>
+                                        <input type="number" class="form-control"
+                                            name="qty[{{ $size->id }}][{{ $color->id }}]"
+                                            placeholder="Enter quantity">
+                                    </div>
+                                @endforeach
+                            @endforeach
+                        </div>
                     </div>
+
                     <div class="form-group">
                         <label for="menu">Image Main</label>
-                        <input type="file" name="file" class="form-control" id="upload">
+                        <input type="file" name="thumb" class="form-control" id="upload">
                     </div>
                     <div id="image_show">
                     </div>
                     <input type="hidden" name="thumb" id="thumb">
-                    <div class="form-group">
-                        <label for="menu">Image 1</label>
-                        <input type="file" name="image1" class="form-control" id="upload">
+                    <input type="hidden" name="thumb" id="thumb">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="menu">Image 1</label>
+                            <input type="file" name="image1" class="form-control" id="upload">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="menu">Image 2</label>
+                            <input type="file" name="image2" class="form-control" id="upload">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="menu">Image 3</label>
+                            <input type="file" name="image3" class="form-control" id="upload">
+                        </div>
                     </div>
-                    <input type="hidden" name="image1" id="image1">
-                    <div class="form-group">
-                        <label for="menu">Image 2</label>
-                        <input type="file" name="image2" class="form-control" id="upload">
-                    </div>
-                    <input type="hidden" name="image2" id="image2">
-                    <div class="form-group">
-                        <label for="menu">Image 3</label>
-                        <input type="file" name="image3" class="form-control" id="upload">
-                    </div>
-                    <input type="hidden" name="image3" id="image3">
                     <!-- /.card-body -->
                     @csrf
                     <div class="card-footer">

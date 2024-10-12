@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Discount\CreateFormRequest;
 use App\Http\Services\Discount\DiscountService;
 use App\Models\Discount;
+use App\Models\Message;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -19,8 +20,12 @@ class DiscountController extends Controller
     }
     public function index()
     {
+        $messages = Message::select('email', 'content')->orderByDesc('id')->get();
+        $msCount = Message::count();
         return view('admin.discounts.add', [
             'title' => 'Add discount',
+            'messages' => $messages,
+            'msCount' => $msCount,
         ]);
     }
     public function store(CreateFormRequest $request, Discount $discount)
@@ -34,9 +39,13 @@ class DiscountController extends Controller
     }
     public function show()
     {
+        $messages = Message::select('email', 'content')->orderByDesc('id')->get();
+        $msCount = Message::count();
         $discounts = $this->discountService->getAll();
         return view('admin.discounts.list', [
             'title' => 'List discount',
+            'messages' => $messages,
+            'msCount' => $msCount,
             'discounts' => $discounts
         ]);
     }
@@ -57,8 +66,12 @@ class DiscountController extends Controller
     }
     public function edit(Discount $discount)
     {
+        $messages = Message::select('email', 'content')->orderByDesc('id')->get();
+        $msCount = Message::count();
         return view('admin.discounts.edit', [
             'title' => 'Edit discount',
+            'messages' => $messages,
+            'msCount' => $msCount,
             'discount' => $discount
         ]);
     }

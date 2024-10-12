@@ -1,15 +1,18 @@
 <?php
 
 use App\Http\Controllers\Admin\CartController as AdminCartController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\MainController;
 
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\Users\LoginController;
 use App\Http\Controllers\Admin\Users\LogoutController;
+use App\Http\Controllers\User\AddressController;
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\MainController as UserMainController;
 use App\Http\Controllers\User\MenuController as UserMenuController;
@@ -66,36 +69,72 @@ Route::middleware(['auth'])->group(function () {
             Route::post('edit/{slider}', [SliderController::class, 'edit']);
             Route::DELETE('destroy', [SliderController::class, 'destroy']);
         });
+        //Customer
+        Route::get('customerList', [CustomerController::class, 'listCustomer']);
+        Route::DELETE('deleteCt', [CustomerController::class, 'destroyCustomer']);
         //Cart-Order
-        Route::get('customer', [AdminCartController::class, 'index']);
-        Route::get('customer/view/{customer}', [AdminCartController::class, 'show']);
-        Route::DELETE('destroy', [AdminCartController::class, 'destroy']);
+        Route::get('order', [OrderController::class, 'index']);
+        Route::get('orderToDay', [OrderController::class, 'getNow']);
+        Route::get('orderYesterday', [OrderController::class, 'getLast']);
+        Route::get('order/view/{order}', [OrderController::class, 'show']);
+        Route::DELETE('destroy', [OrderController::class, 'destroy']);
+        Route::post('edit/{order}', [OrderController::class, 'edit']);
+        Route::get('invoice/{order}', [OrderController::class, 'print']);
+        //Chart
+        Route::get('getChartCol', [OrderController::class, 'chartCol']);
+        Route::get('getChartRod', [OrderController::class, 'chartRod']);
+        //statis
+        Route::get('statis', [OrderController::class, 'getStatis']);
     });
 });
+Route::get('/orders-revenue/{month}', [OrderController::class, 'getOrdersByMonth']);
+Route::get('searchProduct', [UserProductController::class, 'search']);
+Route::get('searchProductUser', [UserProductController::class, 'searchUser']);
 //User
 Route::prefix('user')->group(function () {
     Route::get('/', [UserMainController::class, 'index']);
     Route::get('shop', [UserMainController::class, 'product']);
     //Contact
     Route::get('contact', [UserMainController::class, 'contact']);
+    Route::post('contact', [UserMainController::class, 'send']);
     //About
     Route::get('about', [UserMainController::class, 'about']);
     //discount
     Route::post('apply_discount', [CartController::class, 'apply_discount'])->name('apply_discount');
+    //Login
+    Route::get('login', [UserMainController::class, 'viewlogin']);
+    Route::post('login', [UserMainController::class, 'login']);
+    Route::get('register', [UserMainController::class, 'viewRegister']);
+    Route::post('register', [UserMainController::class, 'register']);
+    Route::get('settings', [UserMainController::class, 'settings']);
+    Route::post('settings', [UserMainController::class, 'updateInfor']);
+    Route::post('logout', [UserMainController::class, 'logout']);
 });
+// Get address
+Route::get('/get-districts/{provinceId}', [AddressController::class, 'getDistricts']);
+Route::get('/get-wards/{districtId}', [AddressController::class, 'getWards']);
+
 Route::post('/services/load-product', [UserMainController::class, 'loadProduct']);
 //Product with category
 Route::get('/categories/{id}-{slug}.html', [UserMenuController::class, 'index'])->name('categories.show');
-
 //QuickView product
 Route::get('/product/{id}-{name}.html', [UserProductController::class, 'index']);
+Route::get('/get-product-quantity', [UserProductController::class, 'getProductQuantityByName'])->name('getProductQuantityByName');
 Route::get('/product/{id}/quickview', [UserMainController::class, 'quickView'])->name('product.quickview');
 Route::get('/size-chart', [UserMainController::class, 'getSizeChart'])->name('size_chart');
+Route::get('/productBST', [UserMainController::class, 'proSlider']);
+
 //Cart
 Route::get('/cart', [CartController::class, 'index']);
+Route::post('/pointCustom', [CartController::class, 'point']);
 // Route::get('/order', [CartController::class, 'order']);
 Route::post('/add-cart', [CartController::class, 'add']);
 Route::post('/update-cart', [CartController::class, 'update']);
-Route::get('/delete-cart/{id}', [CartController::class, 'delete']);
+Route::get('/delete-cart/{id}/{size}/{color}', [CartController::class, 'delete']);
 Route::post('/buy-cart', [CartController::class, 'buy']);
 Route::get('/order-cart', [CartController::class, 'order']);
+Route::get('/viewOrder', [CartController::class, 'viewOd']);
+Route::post('/viewOrder', [CartController::class, 'findOd']);
+Route::post('/cancelOrder/{id}', [OrderController::class, 'cancel']);
+//Review
+Route::post('/review/{product}', [UserMainController::class, 'review'])->name('review.store');

@@ -60,48 +60,66 @@
                     </div>
                     <div class="col-md-6">
                         <label for="menu">Quantity stock</label>
-                        <input type="text" class="form-control" name="qty_stock" value="{{ $product->qty_stock }}">
+                        <label class="form-control">{{ $product->qty_stock }}</label>
                     </div>
                     <div class="form-group">
-                        <label for="menu">Image Main</label>
-                        <input type="file" name="file" class="form-control" id="upload">
+                        <label for="sizes_colors">Sizes and Colors</label>
+                        <div class="row">
+                            @foreach ($sizes as $size)
+                                @foreach ($colors as $color)
+                                    <div class="col-md-4">
+                                        <label>{{ $size->name }} - {{ $color->name }}</label>
+                                        <input type="number" class="form-control"
+                                            name="qty[{{ $size->id }}][{{ $color->id }}]"
+                                            value="{{ isset($quantities[$size->id][$color->id]) ? $quantities[$size->id][$color->id] : 0 }}"
+                                            placeholder="Enter quantity">
+                                    </div>
+                                @endforeach
+                            @endforeach
+                        </div>
                     </div>
-                    <div id="image_show">
-                        <a href="{{ $product->thumb }}">
-                            <img src="{{ $product->thumb }}" alt="" width="100px">
-                        </a>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="menu">Image Main</label>
+                            <input type="file" name="thumb" class="form-control" id="upload">
+                            <div id="image_show">
+                                <a href="{{ $product->thumb }}">
+                                    <img src="{{ $product->thumb }}" alt="" width="70px">
+                                </a>
+                            </div>
+                            <input type="hidden" name="thumb" id="thumb" value="{{ $product->thumb }}">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="menu">Image 1</label>
+                            <input type="file" name="image1" class="form-control" id="upload">
+                            <div id="image_show">
+                                <a href="{{ $product->image1 }}">
+                                    <img src="{{ $product->image1 }}" alt="" width="70px">
+                                </a>
+                            </div>
+                            <input type="hidden" name="image1" id="image1" value="{{ $product->image1 }}">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="menu">Image 2</label>
+                            <input type="file" name="image2" class="form-control" id="upload">
+                            <div id="image_show">
+                                <a href="{{ $product->image2 }}">
+                                    <img src="{{ $product->image2 }}" alt="" width="70px">
+                                </a>
+                            </div>
+                            <input type="hidden" name="image2" id="image2" value="{{ $product->image2 }}">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="menu">Image 3</label>
+                            <input type="file" name="image3" class="form-control" id="upload">
+                            <div id="image_show">
+                                <a href="{{ $product->image3 }}">
+                                    <img src="{{ $product->image3 }}" alt="" width="70px">
+                                </a>
+                            </div>
+                            <input type="hidden" name="image3" id="image3" value="{{ $product->image3 }}">
+                        </div>
                     </div>
-                    <input type="hidden" name="thumb" id="thumb" value="{{ $product->thumb }}">
-                    <div class="form-group">
-                        <label for="menu">Image 1</label>
-                        <input type="file" name="image1" class="form-control" id="upload">
-                    </div>
-                    <div id="image_show">
-                        <a href="{{ $product->image1 }}">
-                            <img src="{{ $product->image1 }}" alt="" width="100px">
-                        </a>
-                    </div>
-                    <input type="hidden" name="image1" id="image1" value="{{ $product->image1 }}">
-                    <div class="form-group">
-                        <label for="menu">Image 2</label>
-                        <input type="file" name="image2" class="form-control" id="upload">
-                    </div>
-                    <div id="image_show">
-                        <a href="{{ $product->image2 }}">
-                            <img src="{{ $product->image2 }}" alt="" width="100px">
-                        </a>
-                    </div>
-                    <input type="hidden" name="image2" id="image2" value="{{ $product->image2 }}">
-                    <div class="form-group">
-                        <label for="menu">Image 3</label>
-                        <input type="file" name="image3" class="form-control" id="upload">
-                    </div>
-                    <div id="image_show">
-                        <a href="{{ $product->image3 }}">
-                            <img src="{{ $product->image3 }}" alt="" width="100px">
-                        </a>
-                    </div>
-                    <input type="hidden" name="image3" id="image3" value="{{ $product->image3 }}">
                     <!-- /.card-body -->
                     @csrf
                     <div class="card-footer">

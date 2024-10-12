@@ -11,6 +11,18 @@
     </style>
 @endsection
 @section('content')
+    <form class="form-inline ml-3" action="/searchProduct">
+        <p>Tìm kiếm sản phẩm :</p>
+        <div class="input-group input-group-sm">
+            <input class="form-control form-control-navbar" name="search" type="search" placeholder="Search"
+                aria-label="Search">
+            <div class="input-group-append">
+                <button class="btn btn-navbar" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
     <table class="table">
         <thead>
             <tr>

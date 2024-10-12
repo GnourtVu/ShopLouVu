@@ -5,8 +5,11 @@
 <!--===============================================================================================-->
 <script src="/template/user/vendor/bootstrap/js/popper.js"></script>
 <script src="/template/user/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <!--===============================================================================================-->
 <script src="/template/user/vendor/select2/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 <script>
     $(".js-select2").each(function() {
         $(this).select2({

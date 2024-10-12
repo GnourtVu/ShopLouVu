@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Services\Cart\CartService;
 use App\Models\Cart;
 use App\Models\Customer;
+use App\Models\Message;
 use App\Models\Product;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\JsonResponse;
@@ -21,9 +23,13 @@ class CartController extends Controller
     }
     public function index()
     {
+        $messages = Message::select('email', 'content')->orderByDesc('id')->get();
+        $msCount = Message::count();
         return view('admin.carts.list', [
             'title' => 'List orders',
-            'customers' => $this->cartService->getCartList()
+            'messages' => $messages,
+            'msCount' => $msCount,
+            // 'customers' => $this->cartService->getCartList()
         ]);
     }
     public function destroy(Request $request): JsonResponse
@@ -43,10 +49,14 @@ class CartController extends Controller
     }
     public function show(Customer $customer)
     {
+        $messages = Message::select('email', 'content')->orderByDesc('id')->get();
+        $msCount = Message::count();
         $order = Cart::select('discount', 'total')->where('customer_id', $customer->id)->first();
         return view('admin.carts.viewOrder', [
             'title' => 'Order detail ',
             'customer' => $customer,
+            'messages' => $messages,
+            'msCount' => $msCount,
             'carts' => $customer->carts()->with('product')->get(),
             'order' => $order
         ]);

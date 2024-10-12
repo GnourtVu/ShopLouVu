@@ -20,14 +20,36 @@ class Product extends Model
         'image1',
         'image2',
         'image3',
-        'qty_stock'
+        'qty_stock',
+        'feedback',
+        'size'
     ];
+    public function getQuantitiesBySizeAndColor()
+    {
+        $quantities = [];
+        foreach ($this->quantities as $quantity) {
+            $quantities[$quantity->size_id][$quantity->color_id] = $quantity->qty;
+        }
+        return $quantities;
+    }
     public function menu()
     {
         return $this->hasOne(Menu::class, 'id', 'menu_id')->withDefault(['name' => '']);
     }
-    public function product_images()
+    public function orderItems()
     {
-        return $this->hasMany(ProductImages::class, 'product_id', 'id');
+        return $this->hasMany(Order_item::class, 'product_id', 'id');
+    }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+    public function sizes()
+    {
+        return $this->hasMany(Size::class);
+    }
+    public function quantities()
+    {
+        return $this->hasMany(Product_var::class);
     }
 }

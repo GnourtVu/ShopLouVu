@@ -5,6 +5,7 @@ namespace App\Http\Services\Menu;
 use App\Models\Menu;
 use App\Models\Product;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -17,6 +18,10 @@ class MenuService
     public function show()
     {
         return Menu::select('name', 'id', 'thumb', 'slug')->where('parent_id', 0)->orderbyDesc('id')->get();
+    }
+    public function showChild($id)
+    {
+        return Menu::select('name', 'id', 'thumb', 'slug')->where('parent_id', $id)->orderbyDesc('id')->get();
     }
     public function getMenu()
     {
@@ -115,26 +120,52 @@ class MenuService
     }
     public function getmainProducts($request)
     {
-        $query = Product::select('id', 'name', 'price', 'price_sale', 'thumb')
-            ->where('active', 1);
+        $query = Product::select(
+            'products.id',
+            'products.name',
+            'products.price',
+            'products.price_sale',
+            'products.thumb',
+            'products.qty_stock',
+            'products.image1',
+            'products.image2',
+            'products.image3',
+            DB::raw('IFNULL(SUM(order_items.qty), 0) as total_qty') // Nếu không có giá trị, đặt mặc định là 0
+        )
+            ->leftJoin('order_items', 'products.id', '=', 'order_items.product_id') // Sử dụng LEFT JOIN để lấy cả sản phẩm chưa được bán
+            ->where('products.active', 1)
+            ->groupBy('products.id', 'products.name', 'products.price', 'products.price_sale', 'products.thumb', 'products.qty_stock', 'products.image1', 'products.image2', 'products.image3'); // Nhóm theo các cột không phải hàm tổng hợp
+
+        if ($request->input('sort') === 'default') {
+            $query->orderBy('products.id', 'asc')->paginate(16)->withQueryString();
+        }
         if ($request->input('price')) {
-            $query->orderBy('price', $request->input('price'));
+            $query->orderBy('products.price', $request->input('price'))->paginate(16)->withQueryString();
+        }
+        if ($request->input()) {
+            if ($request->input('listProduct') === 'new') {
+                $query->orderByDesc('products.created_at')->paginate(16)->withQueryString();
+            } else if ($request->input('listProduct') === 'hot') {
+                $query->orderByDesc('total_qty')->limit(12); // Sắp xếp theo số lượng đã bán giảm dần
+            }
         }
         if ($request->input('price_range')) {
             switch ($request->input('price_range')) {
                 case 'low_price':
-                    $query->whereBetween('price', [100000, 199000]);
+                    $query->whereBetween('products.price', [100000, 199000])->paginate(16)->withQueryString();
                     break;
                 case 'medium_price':
-                    $query->whereBetween('price', [200000, 299000]);
+                    $query->whereBetween('products.price', [200000, 299000])->paginate(16)->withQueryString();
                     break;
                 case 'high_price':
-                    $query->Where('price', '>', 300000);
+                    $query->where('products.price', '>', 300000)->paginate(16)->withQueryString();
                     break;
             }
         }
-        return  $query->orderByDesc('id')->paginate(16)->withQueryString();
+        return $query;
     }
+
+
 
     public function getProducts($menu, $request)
     {
@@ -142,8 +173,32 @@ class MenuService
         $categoryIds = $this->getAllCategoryIds($menu);
 
         // Truy vấn sản phẩm dựa trên danh sách id vừa thu thập được
-        $query = Product::select('id', 'name', 'price', 'price_sale', 'thumb', 'image1', 'image2', 'image3')
-            ->where('active', 1)
+        $query =
+            Product::select(
+                'products.id',
+                'products.name',
+                'products.price',
+                'products.price_sale',
+                'products.thumb',
+                'products.qty_stock',
+                'products.image1',
+                'products.image2',
+                'products.image3',
+                DB::raw('IFNULL(SUM(order_items.qty), 0) as total_qty') // Nếu không có giá trị, đặt mặc định là 0
+            )
+            ->leftJoin('order_items', 'products.id', '=', 'order_items.product_id') // Sử dụng LEFT JOIN để lấy cả sản phẩm chưa được bán
+            ->where('products.active', 1)
+            ->groupBy(
+                'products.id',
+                'products.name',
+                'products.price',
+                'products.price_sale',
+                'products.thumb',
+                'products.qty_stock',
+                'products.image1',
+                'products.image2',
+                'products.image3'
+            )
             ->whereIn('menu_id', $categoryIds);
 
         if ($request->input('price')) {
@@ -152,13 +207,13 @@ class MenuService
         if ($request->input('price_range')) {
             switch ($request->input('price_range')) {
                 case 'low_price':
-                    $query->whereBetween('price', [100000, 199000]);
+                    $query->whereBetween('products.price', [100000, 199000]);
                     break;
                 case 'medium_price':
-                    $query->whereBetween('price', [200000, 299000]);
+                    $query->whereBetween('products.price', [200000, 299000]);
                     break;
                 case 'high_price':
-                    $query->Where('price', '>', 300000);
+                    $query->Where('products.price', '>', 300000);
                     break;
             }
         }

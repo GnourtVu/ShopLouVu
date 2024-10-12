@@ -11,12 +11,17 @@ class Customer extends Model
     protected $fillable = [
         'name',
         'email',
-        'address',
         'phone',
-        'content'
+        'password',
+        'point',
+        'role'
     ];
-    public function carts()
+    public function cart()
     {
-        return $this->hasMany(Cart::class, 'customer_id', 'id');
+        return $this->hasOne(Cart::class, 'customer_id', 'id');
+    }
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'customer_id', 'id');
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Menu\CreateFormRequest;
 use App\Http\Services\Menu\MenuService;
 use App\Models\Menu;
+use App\Models\Message;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -19,17 +20,24 @@ class MenuController extends Controller
     // Danh sách danh mục
     public function list()
     {
+        $messages = Message::select('email', 'content')->orderByDesc('id')->get();
+        $msCount = Message::count();
         return view('admin.menus.list', [
             'title' => 'List Category',
+            'messages' => $messages,
+            'msCount' => $msCount,
             'menus' => $this->menuService->getAll()
         ]);
     }
     // Hiện form danh mục
     public function create()
     {
-
+        $messages = Message::select('email', 'content')->orderByDesc('id')->get();
+        $msCount = Message::count();
         return view('admin.menus.add', [
             'title' => 'Add category',
+            'messages' => $messages,
+            'msCount' => $msCount,
             'menus' => $this->menuService->getMenu()
         ]);
     }
@@ -64,9 +72,13 @@ class MenuController extends Controller
     //Sửa danh mục
     public function show(Menu $menu)
     {
+        $messages = Message::select('email', 'content')->orderByDesc('id')->get();
+        $msCount = Message::count();
         return view('admin.menus.edit', [
             'title' => 'Edit category : ' . $menu->name,
             'menu' => $menu,
+            'messages' => $messages,
+            'msCount' => $msCount,
             'menus' => $this->menuService->getMenu()
         ]);
     }

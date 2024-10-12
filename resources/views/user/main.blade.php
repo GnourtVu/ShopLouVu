@@ -107,21 +107,39 @@
                                 <div class="p-t-33">
                                     <div class="flex-w flex-r-m p-b-10">
                                         <div class="size-203 flex-c-m respon6">
-                                            Size
+                                            Color
                                         </div>
                                         <div class="size-204 respon6-next">
                                             <div class="rs1-select2 bor8 bg0">
-                                                <select class="js-select2" name="time">
-                                                    <option>Chọn size phù hợp</option>
-                                                    <option>Size S</option>
-                                                    <option>Size M</option>
-                                                    <option>Size L</option>
-                                                    <option>Size XL</option>
+                                                <select class="js-select2" name="color">
+                                                    <option value="">Chọn màu phù hợp</option>
+                                                    <option value="Trắng">Trắng</option>
+                                                    <option value="Đen">Đen</option>
+                                                    <option value="Xanh">Xanh</option>
+                                                    <option value="Vàng">Vàng</option>
                                                 </select>
                                                 <div class="dropDownSelect2"></div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="flex-w flex-r-m p-b-10">
+                                        <div class="size-203 flex-c-m respon6">
+                                            Size
+                                        </div>
+                                        <div class="size-204 respon6-next">
+                                            <div class="rs1-select2 bor8 bg0">
+                                                <select class="js-select2" name="size">
+                                                    <option value="">Chọn size phù hợp</option>
+                                                    <option value="S">S</option>
+                                                    <option value="M">M</option>
+                                                    <option value="L">L</option>
+                                                    <option value="XL">XL</option>
+                                                </select>
+                                                <div class="dropDownSelect2"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="flex-w flex-r-m p-b-10">
                                         <div class="size-204 flex-w flex-m respon6-next">
                                             <div class="wrap-num-product flex-w m-r-20 m-tb-10">

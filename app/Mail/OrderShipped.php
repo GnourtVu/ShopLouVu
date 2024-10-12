@@ -8,17 +8,20 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class OrderShipped extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $order;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($order)
     {
-        //
+        $this->order = $order;
     }
 
     /**
@@ -36,10 +39,15 @@ class OrderShipped extends Mailable
      */
     public function content(): Content
     {
+        if (!$this->order) {
+            Log::error('Order not found');
+        }
         return new Content(
             view: 'mail.sendMail',
+            with: ['order' => $this->order],
         );
     }
+
     /**
      * Get the attachments for the message.
      *
